@@ -16,6 +16,8 @@ build:
   # rust-gnu_win-32=1.56.0 and rust_win-32=1.56.0 aren't available on win32
   skip: True  # [py<36 or win32]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+  missing_dso_whitelist:
+    - $RPATH/ld64.so.1  # [linux and s390x]
 
 requirements:
   build:
