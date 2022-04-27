@@ -16,7 +16,8 @@ build:
   # and testing one of them fails but another succeeded.
   skip: True  # [py<36 or win32 or (win64 and (rust_compiler == 'rust-gnu'))]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
-
+  missing_dso_whitelist:  # [s390x]
+    - $RPATH/ld64.so.1    # [s390x]
 requirements:
   build:
     - {{ compiler('cxx') }}
