@@ -20,7 +20,6 @@ build:
     - $RPATH/ld64.so.1    # [s390x]
 requirements:
   build:
-    - {{ compiler('cxx') }}
     - {{ compiler('rust') }}
   host:
     - pip
