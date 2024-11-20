@@ -11,11 +11,11 @@ source:
   sha256: 8dc358821591f576eef7bfe10187bc7b06b9a0c438a1f346170638718eff1263
 
 build:
-  number: 0
+  number: 1
   # 2022/4/27: On win64 `rust_compiler_rust-gnu` tries to create two artifacts with different hashes in the artifact's filename,
   # and testing one of them fails but another succeeded.
   skip: True  # [py<36 or win32 or (win64 and (rust_compiler == 'rust-gnu'))]
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
   missing_dso_whitelist:  # [s390x]
     - $RPATH/ld64.so.1    # [s390x]
 requirements:
