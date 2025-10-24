@@ -1,5 +1,4 @@
 {% set name = "spacy-alignments" %}
-{% set module_name = "spacy_alignments" %}
 {% set version = "0.9.2" %}
 
 package:
@@ -7,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/s/spacy-alignments/spacy_alignments-0.9.2.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace("-", "_") }}-{{ version }}.tar.gz
   sha256: 1c50b50d261550d3220887cfd0a12a6e85e709d815a66949f6b92340e4278d69
 
 build:
@@ -16,8 +15,6 @@ build:
   # and testing one of them fails but another succeeded.
   skip: true  # [py<39 or win32 or (win64 and (rust_compiler == 'rust-gnu'))]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
-  missing_dso_whitelist:  # [s390x]
-    - $RPATH/ld64.so.1  # [s390x]
 
 requirements:
   build:
@@ -34,17 +31,18 @@ requirements:
 
 test:
   requires:
-    - hypothesis >=5.3.1,<7.0.0
     - pip
     - pytest
+    - hypothesis
   imports:
-    - {{ module_name }}
+    - spacy_alignments
   commands:
     - pip check
-    - python -m pytest --tb=native --pyargs {{ module_name }}
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -ra -vv --tb=short --pyargs spacy_alignments
 
 about:
-  home: https://spacy.io/
+  home: https://spacy.io
   license: MIT
   license_family: MIT
   license_file: LICENSE
