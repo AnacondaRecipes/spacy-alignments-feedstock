@@ -1,0 +1,25 @@
+From 34eb158315ceb632bc29690a4bf53b3f2821a014 Mon Sep 17 00:00:00 2001
+From: "Viacheslav Ch." <vchychyrko@anaconda.com>
+Date: Thu, 9 Apr 2026 13:12:17 +0300
+Subject: [PATCH] enable py314
+
+---
+ setup.cfg | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/setup.cfg b/setup.cfg
+index f5e5fd0..c93dad5 100755
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -30,7 +30,7 @@ classifiers =
+ [options]
+ zip_safe = false
+ include_package_data = true
+-python_requires = >=3.9,<3.14
++python_requires = >=3.9,<3.15
+ setup_requires = 
+ 	setuptools-rust
+ 
+-- 
+2.50.1 (Apple Git-155)
+

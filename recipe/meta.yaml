@@ -9,16 +9,21 @@ source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace("-", "_") }}-{{ version }}.tar.gz
   sha256: 1c50b50d261550d3220887cfd0a12a6e85e709d815a66949f6b92340e4278d69
 
+  patches:
+    # TODO: Remove this patch once new version with py314 support upstream available
+    - 0001-enable-py314.patch
+
 build:
-  number: 0
-  # 2022/4/27: On win64 `rust_compiler_rust-gnu` tries to create two artifacts with different hashes in the artifact's filename,
-  # and testing one of them fails but another succeeded.
-  skip: true  # [py<39 or win32 or (win64 and (rust_compiler == 'rust-gnu'))]
+  number: 1
+  skip: true  # [py<39]
+  script_env:
+    - PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
 
 requirements:
   build:
     - {{ stdlib('c') }}
+    - {{ compiler('cxx') }}
     - {{ compiler('rust') }}
   host:
     - pip
@@ -28,13 +33,12 @@ requirements:
     - wheel
   run:
     - python
-    - {{ pin_compatible("libgcc-ng", max_pin=None) }}  # [linux]
 
 test:
   requires:
     - pip
     - pytest
-    - hypothesis
+    - hypothesis >=5.3.1,<7.0.0
   imports:
     - spacy_alignments
   commands:
