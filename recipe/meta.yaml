@@ -15,7 +15,7 @@ source:
 
 build:
   number: 1
-  skip: true  # [py<39]
+  skip: true  # [py<39 or win or osx]
   script_env:
     - PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
@@ -32,7 +32,7 @@ requirements:
     - wheel
   run:
     - python
-    - {{ pin_compatible("libgcc-ng", max_pin=None) }}  # [linux]
+    - {{ pin_compatible("libgcc", max_pin=None) }}  # [linux]
 
 test:
   requires:
