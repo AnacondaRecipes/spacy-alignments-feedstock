@@ -1,5 +1,5 @@
 {% set name = "spacy-alignments" %}
-{% set version = "0.9.2" %}
+{% set version = "0.9.3" %}
 
 package:
   name: {{ name }}
@@ -7,14 +7,13 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace("-", "_") }}-{{ version }}.tar.gz
-  sha256: 1c50b50d261550d3220887cfd0a12a6e85e709d815a66949f6b92340e4278d69
-
+  sha256: 3b5cd3fe1de6fbeecaaf492a72077799567ed9bfc5ee78ae4f34effe52327644
   patches:
     # TODO: Remove this patch once new version with py314 support upstream available
     - 0001-enable-py314.patch
 
 build:
-  number: 1
+  number: 0
   skip: true  # [py<39]
   script_env:
     - PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
